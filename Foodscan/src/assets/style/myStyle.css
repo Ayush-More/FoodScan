@@ -1,0 +1,41 @@
+.LandPage {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main-container {
+  background-color: #f4f5f8;
+  height: 90vh;
+  width: 90vw;
+  border-radius: 20px;
+  display: flex;
+}
+.front {
+  flex-direction: column;
+}
+.navbar {
+  width: 95%;
+  height: 10%;
+  display: flex;
+
+  padding: 25px;
+  align-items: center;
+  justify-content: space-between;
+}
+.icon {
+  width: 1.25em !important;
+  height: 1.25em !important;
+}
+.landingContent {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+.tagLine {
+  margin: 90px 15px 15px 15px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #2d3941;
+}
