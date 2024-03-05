@@ -35,7 +35,7 @@ function LandPageOverview() {
             </IconButton>
             <div> 
               <IconButton>
-                 <UploadIcon onClick={()=>{nav ("/profile")}} className="icon " />
+                 <UploadIcon onClick={()=>{nav ("/upload")}} className="icon " />
               </IconButton>
             </div>
     
