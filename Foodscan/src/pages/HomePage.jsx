@@ -7,12 +7,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import UploadIcon from '@mui/icons-material/Upload';
 import mainImage from "./../assets/images/Product.png";
 import "./../assets/style/myStyle.css";
-
 import { useNavigate } from "react-router-dom";
 function LandPageOverview() {
   const nav = useNavigate();
-
- 
   return (
     <>
     <div style={{display:"flex" , flexDirection:"column"}}>
@@ -23,11 +20,8 @@ function LandPageOverview() {
         <nav className="navbar">
         <div style={{display:"flex" , columnGap:"20px"}}> <SchoolIcon className="icon " />
         <h1><span style={{color:"#40679E"}}>Product</span> Scan</h1></div>
-        <div style={{display:"flex" , columnGap:"20px"}} ><IconButton
-             
-            >
-
-             
+        <div style={{display:"flex" , columnGap:"20px"}} >
+          <IconButton   onClick={()=>{nav ("/search")}}>
                 <SearchIcon
                   className="icon "
                 />
