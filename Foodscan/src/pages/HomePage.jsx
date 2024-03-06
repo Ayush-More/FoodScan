@@ -8,6 +8,8 @@ import UploadIcon from '@mui/icons-material/Upload';
 import mainImage from "./../assets/images/Product.png";
 import "./../assets/style/myStyle.css";
 import { useNavigate } from "react-router-dom";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 function LandPageOverview() {
   const nav = useNavigate();
   return (
@@ -27,11 +29,19 @@ function LandPageOverview() {
                 />
             
             </IconButton>
+            
+            
             <div> 
               <IconButton>
                  <UploadIcon onClick={()=>{nav ("/upload")}} className="icon " />
               </IconButton>
             </div>
+            <div> 
+              <IconButton>
+                 <AccountCircleIcon onClick={()=>{nav ("/profile")}} className="icon " />
+              </IconButton>
+            </div>
+            
     
             </div>      
         </nav>
@@ -39,7 +49,7 @@ function LandPageOverview() {
         
         <div style={{padding: "0px 100px"}} className="landingContent ">
           
-          <div ><p className="tagLine ">Empowering<span style={{color:"#40679E" , fontSize:"40px", padding:"20px" }}>AYUSH</span><br/>Campus Journey:<br/><span style={{ fontSize:"20px"}}>Mentorship, Book Exchange and  Events at Your Fingertips!</span></p>
+          <div ><p className="tagLine ">Food is fuel<span style={{color:"#40679E" , fontSize:"40px", padding:"20px" }}>calories are the currency of energy.</span><br/><br/><span style={{ fontSize:"20px"}}> Choose wisely to nourish your body and power your life</span></p>
           <Button  style={{ backgroundColor:"#40679E", marginLeft:"30px"}} color="success" variant="contained" size="medium">
           Explore <ArrowRightAltIcon/>
         </Button></div>
