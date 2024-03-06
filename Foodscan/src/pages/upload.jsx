@@ -11,6 +11,7 @@ import "./../assets/style/myStyle.css";
 import { useNavigate } from "react-router-dom";
 import DriveFolderUploadRoundedIcon from '@mui/icons-material/DriveFolderUploadRounded';
 function Upload() {
+;
   return (
     <div style={{display:"flex" , flexDirection:"column"}}>
     <div className='LandPage'>
@@ -47,11 +48,16 @@ function Upload() {
          display:'flex',
           
         }}>
-         
+          
+          <input id="file-input" type="file" className='w-full hidden' />
+          <label for="file-input">
+             
           <DriveFolderUploadRoundedIcon style={{fontSize:'30px',marginRight:'10px'}}
         
-          />
-          Upload
+        />
+        Upload
+        </label>
+        
           
           
           
