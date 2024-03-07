@@ -36,8 +36,9 @@ exports.Signup = asyncHandler(async (req, res) => {
         email: req.body.email,
         password: req.body.password,
         age: req.body.age,
-        allergeies: req.body.allergeies,
-        category: req.body.category,
+        allergeies: req.body.allergicItem,
+        diet: req.body.dietaryPreferences,
+        category: req.body.ageCategory,
         height: req.body.height,
         weight: req.body.weight,
       });

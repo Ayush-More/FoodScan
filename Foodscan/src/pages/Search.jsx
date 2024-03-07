@@ -18,7 +18,6 @@ function Search() {
 
     fetchProducts();
   }, []);
-
   return (
     <div className="main-container front" style={{ fontFamily: 'cursive' }}>
       <div className="sb-search">

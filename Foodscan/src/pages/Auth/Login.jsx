@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Email, Lock, Person, School } from '@mui/icons-material'; // Import icons
-import { IconButton } from '@mui/material';
 import Lottie from 'lottie-react';
 import Animation from '../../assets/3.json';
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 function Login() {
   const nav = useNavigate();
@@ -14,9 +14,21 @@ function Login() {
   const [repeatPassword, setRepeatPassword] = useState('');
 
   // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here
+  const handleFormSubmit = async () => {
+    try {
+      console.log("Hello");
+      const response = await axios.post("http://localhost:5000/api/v1/signup", {
+        email:email,
+        password: password,
+      });
+      console.log(response.data);
+      localStorage.setItem("jwt" , response.data.token);
+      localStorage.getItem("user" , JSON.stringify(response.data.user.email));// Assuming server responds with some data
+      // Redirect or perform any other action upon successful submission
+      nav("/"); // Redirect to success page after successful submission
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (
@@ -38,7 +50,7 @@ function Login() {
             />
 
             <form
-              onSubmit={handleSubmit}
+              onSubmit={handleFormSubmit}
               className="sm ml-[50px]  md:ml-[280px] w-[180px] sm:w-[255px] "
             >
               <h1

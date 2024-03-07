@@ -9,23 +9,31 @@ import Login from "./pages/Auth/Login.jsx";
 import './index.css'
 import Signup from './pages/Auth/Signup.jsx'
 import Profile from './pages/Auth/Profile.jsx'
+import { Navigate } from "react-router-dom";
+export function PrivateRoute(props) {
+  let { component: Component } = props;
+  const token = localStorage.getItem("jwt");
+  console.log(token);
+  const isLoggedIn = token != null && token != undefined;
 
+  return isLoggedIn ? <Component /> : <Navigate to="/login" />;
+}
 function App() {
   const router= createBrowserRouter([{
     path: "/",
-    element: <LandPageOverview/>,
+    element: <PrivateRoute component={LandPageOverview}/>,
     },
     {
       path: "/upload",
-      element: <Upload/>,
+      element:<PrivateRoute component={Upload}/>,
     },
     {
       path:'/search',
-      element:<Search/>
+      element:<PrivateRoute component={Search}/>
     },
     {
       path: "/info",
-      element: <Info/>,
+      element: <PrivateRoute component={Info}/>,
     },
     {
       path:'/login',
@@ -37,7 +45,7 @@ function App() {
     },
     {
       path: "/profile",
-      element: <Profile/>,
+      element: <PrivateRoute component={Profile}/>,
     },
    
     

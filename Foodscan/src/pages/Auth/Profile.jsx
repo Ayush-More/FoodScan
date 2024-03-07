@@ -3,11 +3,13 @@ import { Delete, Edit } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import SchoolIcon from "@mui/icons-material/School";
 import { CheckCircleIcon, ClockIcon, HeartIcon, LockClosedIcon, UserIcon } from "@heroicons/react/20/solid";
-import { Email,Lock } from "@mui/icons-material";
+import { Email } from "@mui/icons-material";
 import Animation from "../../assets/5.json";
 import Lottie from "lottie-react";
 
 function Profile() {
+    const profileDetails = JSON.parse(localStorage.getItem("user"));
+    console.log(profileDetails);
     return (
         <div className="bg-gray-100 min-h-screen py-8" style={{fontFamily:'cursive'}}>
         <div className="LandPage ">
