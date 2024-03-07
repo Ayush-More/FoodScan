@@ -33,7 +33,8 @@ function App() {
     },
     {
       path: "/info",
-      element: <PrivateRoute component={Info}/>,
+      // element: <PrivateRoute component={Info}/>,
+      element: <Info/>
     },
     {
       path:'/login',
