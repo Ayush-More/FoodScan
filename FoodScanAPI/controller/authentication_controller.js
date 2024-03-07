@@ -182,7 +182,6 @@ exports.ProductDetails = asyncHandler(async (req, res) => {
       product.food_groups,
       product.nutriments["energy-kcal_value"]
     );
-    console.log(alternate);
     const ingredientsTagsArray = {
       ingrident: product.ingredients_tags,
       calories: product.nutriments["energy-kcal_value"],
