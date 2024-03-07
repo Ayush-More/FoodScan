@@ -8,15 +8,28 @@ function Search() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/users');
+        // Get JWT token from localStorage
+
+        const response = await fetch("http://localhost:5000/api/v1/product", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        
         const data = await response.json();
         setProducts(data);
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error("Error fetching products:", error);
       }
     };
 
     fetchProducts();
+    
   }, []);
   return (
     <div className="main-container front" style={{ fontFamily: 'cursive' }}>
