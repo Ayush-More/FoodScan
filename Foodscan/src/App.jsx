@@ -11,6 +11,7 @@ import Signup from './pages/Auth/Signup.jsx'
 import Profile from './pages/Auth/Profile.jsx'
 
 function App() {
+  
   const router= createBrowserRouter([{
     path: "/",
     element: <LandPageOverview/>,
@@ -40,10 +41,9 @@ function App() {
       element: <Profile/>,
     },
    
-    
   
-
   ])
+  
   return (
     <div className="App">
      <RouterProvider router={router}/>

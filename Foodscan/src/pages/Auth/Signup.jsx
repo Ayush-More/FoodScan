@@ -24,7 +24,8 @@ function Signup() {
     allergicItem: "",
     ageCategory: "",
     dietaryPreferences: [],
-    exerciseTime: "",
+    height: "", // New field for height
+    weight: "", // New field for weight
     previousInjury: "",
   });
 
@@ -126,18 +127,33 @@ function Signup() {
                       </ToggleButton>
                     </ToggleButtonGroup>
                   </div>
-                  <div className="mb-3">
-                    <label className="block text-gray-700 font-bold mb-2" htmlFor="exerciseTime">
-                      <ClockIcon className="w-6 h-6 inline-block mr-2 text-yellow-300" /> Time Available for Exercise
-                    </label>
-                    <input
-                      type="text"
-                      className="border-2 border-gray-300 rounded-md p-2 w-full"
-                      id="exerciseTime"
-                      name="exerciseTime"
-                      value={formData.exerciseTime}
-                      onChange={handleChange}
-                    />
+                  <div className="mb-3 flex">
+                    <div style={{ marginRight: '10px', flex: 1 }}>
+                      <label className="block text-gray-700 font-bold mb-2" htmlFor="height">
+                        Height
+                      </label>
+                      <input
+                        type="text"
+                        className="border-2 border-gray-300 rounded-md p-2 w-full"
+                        id="height"
+                        name="height"
+                        value={formData.height}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <label className="block text-gray-700 font-bold mb-2" htmlFor="weight">
+                        Weight
+                      </label>
+                      <input
+                        type="text"
+                        className="border-2 border-gray-300 rounded-md p-2 w-full"
+                        id="weight"
+                        name="weight"
+                        value={formData.weight}
+                        onChange={handleChange}
+                      />
+                    </div>
                   </div>
                   <div className="mb-3">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="previousInjury">

@@ -18,10 +18,17 @@
     "@heroicons/react": "^2.1.1",
     "@mui/icons-material": "^5.15.11",
     "@mui/material": "^5.15.11",
+    "html5-qrcode": "^2.3.8",
     "lottie-react": "^2.4.0",
     "react": "^18.2.0",
+    "react-awesome-slider": "^4.1.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.2"
+    "react-router-dom": "^6.22.2",
+    "react-slick": "^0.30.2",
+    "scandit-sdk": "^5.14.0",
+    "scandit-web-datacapture-barcode": "^6.21.3",
+    "scandit-web-datacapture-core": "^6.21.3",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
