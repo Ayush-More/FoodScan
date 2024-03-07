@@ -1,11 +1,10 @@
 import SchoolIcon from "@mui/icons-material/School";
-import { IconButton, ToggleButton, ToggleButtonGroup } from "@mui/material";
-import Button from "@mui/material/Button";
-import SearchIcon from "@mui/icons-material/Search";
-import { useNavigate, Link } from "react-router-dom";
+import {  ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import Animation from "../../assets/4.json";
 import { useState } from "react";
+import axios from "axios"; 
 import {
   CheckCircleIcon,
   ClockIcon,
@@ -19,15 +18,35 @@ function Signup() {
   const [section, setSection] = useState(1);
   const [formData, setFormData] = useState({
     userName: "",
+    email:"",
     password: "",
-    confirmPassword: "",
     allergicItem: "",
     ageCategory: "",
     dietaryPreferences: [],
-    exerciseTime: "",
-    previousInjury: "",
+    height:"",
+    weight:""
   });
-
+  
+  const handleFormSubmit = async () => {
+    try {
+      console.log("Hello");
+      const response = await axios.post("http://localhost:5000/api/v1/signup", {
+        userName: formData.userName,
+        password: formData.password,
+        age: formData.ageCategory,
+        allergeies: formData.allergicItem,
+        category: formData.dietaryPreferences,
+        exerciseTime: formData.exerciseTime,
+        previousInjury: formData.previousInjury,
+      });
+      console.log(response.data); // Assuming server responds with some data
+      // Redirect or perform any other action upon successful submission
+      nav("/login"); // Redirect to success page after successful submission
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      // Handle error, display error message, etc.
+    }
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -237,7 +256,7 @@ function Signup() {
                         <h4 className="text-black mr-2">Already have an account? </h4>{' '}
                         <div
                           onClick={() => {
-                            nav("/login");
+                            nav(handleFormSubmit);
                           }}
                           className="font-medium text-primary-600 hover:underline dark:text-primary-500 cursor-pointer"
                         >
