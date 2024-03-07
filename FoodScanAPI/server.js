@@ -9,11 +9,11 @@ const app = require("./index");
 
 mongoose
   .connect(
-    "mongodb+srv://ayushmore8652:Ayush@005@cluster0.h5ks2ab.mongodb.net/"
+    "mongodb+srv://ayushmore:xJ2AVerf7eReJPoo@cluster0.t1ebzbt.mongodb.net/"
   )
   .then(() => console.log("DB connection successful!"));
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 const server = app.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });
