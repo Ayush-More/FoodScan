@@ -9,6 +9,8 @@ import mainImage from "./../assets/images/Product.png";
 import "./../assets/style/myStyle.css";
 import { useNavigate } from "react-router-dom";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Lottie from "lottie-react";
+import Animation from "./../assets/6.json";
 
 function LandPageOverview() {
   const nav = useNavigate();
@@ -54,7 +56,7 @@ function LandPageOverview() {
           Explore <ArrowRightAltIcon/>
         </Button></div>
           
-          <div ><img src={mainImage} alt="college" height={400}width={450} /></div>
+          <div ><Lottie animationData={Animation}/></div>
           
           
         </div>
