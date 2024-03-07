@@ -47,5 +47,5 @@ const userSchema = mongoose.Schema({
     default: "80",
   },
 });
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("customer", userSchema);
 module.exports = User;
