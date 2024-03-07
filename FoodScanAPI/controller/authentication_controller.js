@@ -62,130 +62,145 @@ exports.login = asyncHandler(async (req, res) => {
   }
 });
 
-const fetchMain = (key) => {
-  console.log(key);
-  const apiUrl = "https://world.openfoodfacts.org/api/v2/search?page_size=100";
-  // Make a GET request to the API
-  fetch(apiUrl)
-    .then((response) => {
-      // Check if the request was successful
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      // Parse the JSON response
-      return response.json();
-    })
-    .then((data) => {
-      const product = data.products;
-      const alternate = [];
-      product.forEach((item) => {
-        if (item.food_groups === key) {
-          alternate.push({
-            category: item.ingredients_analysis_tags,
-            code: item.code,
-            image:
-              item.selected_images &&
-              item.selected_images.front &&
-              item.selected_images.front.display &&
-              item.selected_images.front.display.fr,
-            keywords: item._keywords,
-            name: item.product_name,
-          });
-        }
-      });
-      return alternate;
-    });
-};
 exports.FetchAll = asyncHandler(async (req, res) => {
+  const apiUrl = "https://world.openfoodfacts.org/api/v2/search?page_size=24";
+  // Make a GET request to the API
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    const products = data.products;
+
+    const vegan = true;
+    const veg = false;
+    const nonveg = false;
+
+    const filterProduct = async (product) => {
+      if (
+        vegan &&
+        product.ingredients_analysis_tags &&
+        !product.ingredients_analysis_tags.includes("en:vegan")
+      ) {
+        return false;
+      }
+      if (
+        veg &&
+        product.ingredients_analysis_tags &&
+        !product.ingredients_analysis_tags.includes("en:vegetarian")
+      ) {
+        return false;
+      }
+      if (
+        nonveg &&
+        product.ingredients_analysis_tags &&
+        product.ingredients_analysis_tags.includes("en:vegan")
+      ) {
+        return false;
+      }
+      return true;
+    };
+    const filteredProducts = await products.filter(filterProduct);
+    const ingredientsTagsArray = filteredProducts.map((product) => ({
+      category: product.ingredients_analysis_tags,
+      code: product.code,
+      image:
+        product.selected_images &&
+        product.selected_images.front &&
+        product.selected_images.front.display &&
+        product.selected_images.front.display.fr,
+      keywords: product._keywords,
+      name: product.product_name,
+    }));
+
+    // Now you have an array containing ingredients_analysis_tags of each product
+
+    res.status(200).json({
+      count: ingredientsTagsArray.length,
+      status: "success",
+      result: { ingredientsTagsArray },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+const fetchMain = async (category, calorie) => {
   const apiUrl = "https://world.openfoodfacts.org/api/v2/search?page_size=100";
   // Make a GET request to the API
-  fetch(apiUrl)
-    .then((response) => {
-      // Check if the request was successful
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    const products = data.products;
+
+    const alternate = [];
+    products.forEach((item) => {
+      if (
+        item.food_groups &&
+        item.food_groups === category &&
+        item.nutriments["energy-kcal_value"] < calorie
+      ) {
+        console.log(item.food_groups);
+        alternate.push({
+          category: item.ingredients_analysis_tags,
+          code: item.code,
+          image:
+            item.selected_images &&
+            item.selected_images.front &&
+            item.selected_images.front.display &&
+            item.selected_images.front.display.fr,
+          keywords: item._keywords,
+          name: item.product_name,
+        });
       }
-      // Parse the JSON response
-      return response.json();
-    })
-    .then((data) => {
-      const products = data.products;
-      const vegan = true;
-      const veg = false;
-      const nonveg = false;
-      const filterProduct = (product) => {
-        console.log(product.ingredients_analysis_tags);
-        if (vegan && !product.ingredients_analysis_tags.includes("en:vegan")) {
-          return false;
-        }
-        if (
-          veg &&
-          !product.ingredients_analysis_tags.includes("en:vegetarian")
-        ) {
-          return false;
-        }
-        if (nonveg && product.ingredients_analysis_tags.includes("en:vegan")) {
-          return false;
-        }
-        return true;
-      };
-      const filteredProducts = products.filter(filterProduct);
-      const ingredientsTagsArray = filteredProducts.map((product) => ({
-        category: product.ingredients_analysis_tags,
-        code: product.code,
-        image:
-          product.selected_images &&
-          product.selected_images.front &&
-          product.selected_images.front.display &&
-          product.selected_images.front.display.fr,
-        keywords: product._keywords,
-        name: product.product_name,
-      }));
-
-      // Now you have an array containing ingredients_analysis_tags of each product
-      console.log(ingredientsTagsArray);
-
-      res.status(200).json({
-        count: ingredientsTagsArray.length,
-        status: "success",
-        result: { ingredientsTagsArray },
-      });
     });
-});
+
+    return alternate;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 exports.ProductDetails = asyncHandler(async (req, res) => {
   const barcode = "3017624010701";
   const apiurl = `https://world.openfoodfacts.net/api/v2/product/${barcode}`;
+  try {
+    const response = await fetch(apiurl);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    const product = data.product;
 
-  fetch(apiurl)
-    .then((response) => {
-      // Check if the request was successful
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      // Parse the JSON response
-      return response.json();
-    })
-    .then((data) => {
-      const product = data.product;
-      const ingredientsTagsArray = {
-        ingrident: product.ingredients_tags,
-        calories: product.nutriments["energy-kcal_value"],
-        nutrients: {
-          fat: product.nutrient_levels.fats,
-          salt: product.nutrient_levels.salt,
-          saturated_fats: product.nutrient_levels["saturated-fat"],
-          sugars: product.nutrient_levels.sugars,
-        },
-        nutriscore: product.nutriscore_score,
-        Alternate: fetchMain(product.food_groups),
-      };
+    // Fetch alternate products asynchronously
+    const alternate = await fetchMain(
+      product.food_groups,
+      product.nutriments["energy-kcal_value"]
+    );
+    console.log(alternate);
+    const ingredientsTagsArray = {
+      ingrident: product.ingredients_tags,
+      calories: product.nutriments["energy-kcal_value"],
+      nutrients: {
+        fat: product.nutrient_levels.fats,
+        salt: product.nutrient_levels.salt,
+        saturated_fats: product.nutrient_levels["saturated-fat"],
+        sugars: product.nutrient_levels.sugars,
+      },
+      nutriscore: product.nutriscore_score,
+      Alternate: alternate,
+    };
 
-      // Now you have an array containing ingredients_analysis_tags of each product
-      console.log(ingredientsTagsArray);
-
-      res.status(200).json({
-        status: "success",
-      });
+    // Now you have an array containing ingredients_analysis_tags of each product
+    res.status(200).json({
+      status: "success",
+      ingredientsTagsArray,
     });
+  } catch (error) {
+    console.log(error);
+  }
 });
